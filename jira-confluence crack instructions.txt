@@ -1,0 +1,82 @@
+1 Create and Run Docker Container:
+
+       docker run -itd -p 8090:8090 --name jira_confluence ubuntu:latest
+
+2 Enter the Container and Perform Setup:
+
+   docker exec -it jira_confluence bin/bash
+
+3  Install Dependencies:
+
+    apt-get update -y
+    apt list --upgradable
+    apt-get upgrade -y
+    
+    apt install -y vim wget postgresql apache2 apt-transport-https certbot python3-certbot-apache fontconfig default-jre
+
+   apt-get update --fix-missing
+4 Create PostgreSQL Database and User:
+ 	
+    
+    service postgresql status
+    service postgresql start
+    su - postgres
+    psql
+    CREATE USER ankit WITH PASSWORD 'ankit@123';
+    CREATE DATABASE "conf_ankit_db" WITH OWNER "ankit"; 
+    GRANT ALL PRIVILEGES ON DATABASE conf_ankit_db TO ankit; 
+    \q
+    exit
+
+5 Download Confluence:
+
+   wget https://www.atlassian.com/software/confluence/downloads/binary/atlassian-confluence-8.5.0-x64.bin
+
+   chmod 777 ./atlassian-confluence-8.5.0-x64.bin
+
+   ./atlassian-confluence-8.5.0-x64.bin
+
+	note:- Dont start Confluence application
+
+6  Activate Confluence:
+
+   cd /opt
+   mkdir atlassian-agent
+   cd atlassian-agent
+
+   pwd 
+   
+   docker cp atlassian-agent.jar 4baaad68637c:/opt/atlassian-agent
+   Successfully copied 976kB to 4baaad68637c:/opt/atlassian-agent
+
+   chmod 777 atlassian-agent.jar
+
+
+
+7  Configure Confluence Java Agent:
+
+   vim /opt/atlassian/confluence/bin/setenv.sh
+    
+   Edit the setenv.sh file and add the following line:
+     
+   export JAVA_OPTS="$JAVA_OPTS -javaagent:/opt/atlassian-agent/atlassian-agent.jar"
+
+
+8  Start Confluence:
+
+
+    /etc/init.d/confluence start
+
+
+    java -jar atlassian-agent.jar -m admin01@gmail.com -o admin@123 -p confl -s BB4T-7CFY-WIQI-IM42
+
+
+
+
+
+
+java -jar atlassian-agent.jar -m admin@gmail.com-o admin@123-p bitbucket -s BRXM-K5F6-W8Q5-DVCX
+
+
+ export JAVA_OPTS="-javaagent:/opt/atlassian-agent/atlassian-agent.jar ${JAVA_OPTS}"
+
