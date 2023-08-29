@@ -68,15 +68,9 @@
     /etc/init.d/confluence start
 
 
-    java -jar atlassian-agent.jar -m admin01@gmail.com -o admin@123 -p confl -s BB4T-7CFY-WIQI-IM42
+    java -jar atlassian-agent.jar -m adminconf@gmail.com -o adminconf@123 -p conf -s BJWM-06K8-MAR1-20WW
 
 
 
 
-
-
-java -jar atlassian-agent.jar -m admin@gmail.com-o admin@123-p bitbucket -s BRXM-K5F6-W8Q5-DVCX
-
-
- export JAVA_OPTS="-javaagent:/opt/atlassian-agent/atlassian-agent.jar ${JAVA_OPTS}"
 
